@@ -1,0 +1,7 @@
+INSERT INTO tasks (id, list_id, title, content, created, edited, priority, deadline, is_done)
+VALUES
+	(NULL, 1, 'eka tehtävä', 'lorem ipsum', NOW(), NULL, 4, NOW(), 0),
+	(NULL, 1, 'toka tehtävä', null, NOW(), NULL, 3, NOW(), 1),
+	(NULL, 2, 'siivoa', 'rätti', NOW(), NULL, 4, NOW(), 1),
+	(NULL, 2, 'käy kaupassa', 'safka', NOW(), NULL, 4, NOW(), 0)
+;

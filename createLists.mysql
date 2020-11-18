@@ -1,0 +1,6 @@
+INSERT INTO lists
+VALUES
+	(NULL, 'eka lista', NOW(), NULL, 1),
+	(NULL, 'toka lista', NOW(), NULL, 2),
+	(NULL, 'ostoslista', NOW(), NULL, 1)
+;
