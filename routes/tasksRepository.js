@@ -1,5 +1,5 @@
 // gets login details from gitnored config.
-const pool = process.env.variable || require('../config.js');
+const pool = process.env.variable // || require('../config.js');
 const mysql = require('mysql')
 const validator = require('../validator.js')
 const queries = require('./queries.js')
