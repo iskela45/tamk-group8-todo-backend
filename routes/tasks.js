@@ -4,6 +4,11 @@ var router = express.Router()
 var bodyParser = require('body-parser')
 router.use(bodyParser.json({ type: 'application/*+json' }))
 
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  next()
+})
+
 // Get all
 router.get('/', async (req, res) => {
   await connection.findAll(req.query)
@@ -14,7 +19,6 @@ router.get('/', async (req, res) => {
 // Get by ID
 router.get('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid)
-
   await connection.findById(urlId, req.query)
     .then((results) => res.status(200).send(results))
     .catch((err) => res.status(500).send(err))

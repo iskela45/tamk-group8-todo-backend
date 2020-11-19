@@ -1,6 +1,6 @@
 // gets login details from gitnored config.
-const pool = process.env.variable // || require('../config.js');
 const mysql = require('mysql')
+const pool = mysql.createPool(process.env.variable) // || require('../config.js')
 const validator = require('../validator.js')
 const queries = require('./queries.js')
 const table = 'tasks'
@@ -94,7 +94,6 @@ const olio = {
     async function asyncOp (resolve, reject) {
       const idStat = await validator.idValidator(id)
       const find = `SELECT * FROM ${table} WHERE id = ${pool.escape(id)}`
-
       if (idStat.errors.length === 0) {
         pool.query(find, (err, response) => {
           if (err) {
