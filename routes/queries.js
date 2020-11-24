@@ -2,7 +2,7 @@ const mysql = require('mysql')
 
 function validateKeys(keys) {
   const keyIsCorrect = (key) =>
-    key === "lat>" ||
+    key === "is_done" ||
     key === "lat<" ||
     key === "lon>" ||
     key === "lon<" ||
@@ -51,6 +51,12 @@ function createOrderClause(keys) {
     }
 
     switch (sort) {
+      case "+is_done":
+        order = order + "is_done ASC";
+        break;
+      case "-is_done":
+        order = order + "is_done DESC";
+        break;
       case "+listId":
         order = order + "list_Id ASC";
         break;
