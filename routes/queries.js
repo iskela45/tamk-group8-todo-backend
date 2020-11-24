@@ -51,17 +51,23 @@ function createOrderClause(keys) {
     }
 
     switch (sort) {
-      case "+lat":
-        order = order + "latitude ASC";
+      case "+listId":
+        order = order + "list_Id ASC";
         break;
-      case "-lat":
-        order = order + "latitude DESC";
+      case "-listId":
+        order = order + "list_Id DESC";
         break;
-      case "+lon":
-        order = order + "longitude ASC";
+      case "+priority":
+        order = order + "priority ASC";
         break;
-      case "-lon":
-        order = order + "longitude DESC";
+      case "-priority":
+        order = order + "priority DESC";
+        break;
+      case "+deadline":
+        order = order + "deadline ASC";
+        break;
+      case "-deadline":
+        order = order + "deadline DESC";
         break;
     }
   }
