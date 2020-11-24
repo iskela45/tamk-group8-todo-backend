@@ -3,10 +3,10 @@ const mysql = require('mysql')
 
 function validateKeys (keys) {
   const keyIsCorrect = (key) =>
-    key === 'lat>' ||
-    key === 'lat<' ||
-    key === 'lon>' ||
-    key === 'lon<' ||
+    key === 'is_done' ||
+    key === 'priority' ||
+    key === 'deadline' ||
+    key === 'list_id' ||
     key === 'sort'
 
   return keys.every(keyIsCorrect)
@@ -58,11 +58,11 @@ function createOrderClause (reqQuery) {
       case '-is_done':
         order = order + 'is_done DESC'
         break
-      case '+listId':
-        order = order + 'list_Id ASC'
+      case '+list_id':
+        order = order + 'list_id ASC'
         break
-      case '-listId':
-        order = order + 'list_Id DESC'
+      case '-list_id':
+        order = order + 'list_id DESC'
         break
       case '+priority':
         order = order + 'priority ASC'
