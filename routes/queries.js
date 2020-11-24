@@ -12,7 +12,7 @@ function validateKeys (keys) {
   return keys.every(keyIsCorrect)
 }
 
-function createWhereClause (keys) {
+function createWhereClause (keys, reqQuery) {
   let where = ' WHERE '
 
   for (let i = 0; i < keys.length; i++) {
@@ -23,11 +23,11 @@ function createWhereClause (keys) {
     }
 
     if (i === keys.length - 1) {
-      where += key + '=' + keys[key]
+      where += key + '=' + reqQuery[key]
       break
     }
 
-    where += key + '=' + keys[key] + ' AND '
+    where += key + '=' + reqQuery[key] + ' AND '
   }
 
   where = where.replace(/lat/g, 'latitude')

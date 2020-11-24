@@ -22,7 +22,7 @@ const olio = {
           reject(new Error('Request included invalid keys.'))
         }
 
-        const where = queries.createWhereClause(keys)
+        const where = queries.createWhereClause(keys, reqQuery)
         const order = queries.createOrderClause(keys)
         sql = queries.createSqlQuery(where, order, table)
       } else {
