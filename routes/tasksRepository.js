@@ -4,6 +4,7 @@ const pool = require('../conf.js')
 const validator = require('../validator.js')
 const queries = require('./queries.js')
 const table = 'tasks'
+const apikey = process.env.apikey
 // MySql query
 
 const olio = {
@@ -29,14 +30,17 @@ const olio = {
         sql = `SELECT * FROM ${table};`
       }
       console.log(sql)
-
-      pool.query(sql, (err, locations) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(locations)
-        }
-      })
+      if (apikey !== process.env.apikey) {
+        reject(new Error('Apikey mismatch'))
+      } else {
+        pool.query(sql, (err, locations) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(locations)
+          }
+        })
+      }
     }
     return new Promise(asyncOp)
   },
@@ -52,13 +56,17 @@ const olio = {
       const idStat = await validator.idValidator(data.listId)
 
       if (idStat.errors.length === 0) {
-        pool.query(save, (err, response) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(response)
-          }
-        })
+        if (apikey !== process.env.apikey) {
+          reject(new Error('Apikey mismatch'))
+        } else {
+          pool.query(save, (err, response) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(response)
+            }
+          })
+        }
       } else {
         reject(idStat)
       }
@@ -73,15 +81,19 @@ const olio = {
       const idStat = await validator.idValidator(id)
 
       if (idStat.errors.length === 0) {
-        pool.query(del, (err, response) => {
-          if (err) {
-            reject(err)
-          } else if (response.affectedRows === 0) {
-            reject(new Error(`could not find resource with id = ${id}`))
-          } else {
-            resolve(response)
-          }
-        })
+        if (apikey !== process.env.apikey) {
+          reject(new Error('Apikey mismatch'))
+        } else {
+          pool.query(del, (err, response) => {
+            if (err) {
+              reject(err)
+            } else if (response.affectedRows === 0) {
+              reject(new Error(`could not find resource with id = ${id}`))
+            } else {
+              resolve(response)
+            }
+          })
+        }
       } else {
         reject(idStat)
       }
@@ -95,13 +107,17 @@ const olio = {
       const idStat = await validator.idValidator(id)
       const find = `SELECT * FROM ${table} WHERE id = ${pool.escape(id)}`
       if (idStat.errors.length === 0) {
-        pool.query(find, (err, response) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(response)
-          }
-        })
+        if (apikey !== process.env.apikey) {
+          reject(new Error('Apikey mismatch'))
+        } else {
+          pool.query(find, (err, response) => {
+            if (err) {
+              reject(err)
+            } else {
+              resolve(response)
+            }
+          })
+        }
       } else {
         reject(idStat)
       }
