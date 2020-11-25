@@ -13,4 +13,6 @@ app.get('/names', (req, res) => {
 })
 
 const port = process.env.PORT || 8080
-const server = app.listen(port, () => { console.log(`Listening on port ${server.address().port}`) })
+const server = app.listen(port, () => {
+  console.log(`Listening on port ${server.address().port}`)
+})
