@@ -31,9 +31,6 @@ const olio = {
       where += key + '=' + reqQuery[key] + ' AND '
     }
 
-    where = where.replace(/lat/g, 'latitude')
-    where = where.replace(/lon/g, 'longitude')
-
     if (keys.length === 1 && keys.includes('sort')) {
       where = ''
     }
