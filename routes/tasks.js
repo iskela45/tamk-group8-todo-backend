@@ -1,5 +1,5 @@
 const express = require('express')
-const connection = require('./tasksRepository.js')
+const connection = require('../repositories/tasksRepository.js')
 var router = express.Router()
 var bodyParser = require('body-parser')
 router.use(bodyParser.json({ type: 'application/*+json' }))
