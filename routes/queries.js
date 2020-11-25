@@ -45,6 +45,7 @@ const olio = {
     let order = ' ORDER BY '
 
     console.log(reqQuery)
+    console.log(reqQuery.sort)
     console.log(typeof reqQuery)
     const fsorts = reqQuery.sort.split(' ').join('+')
     const sorts = fsorts.split(',')
