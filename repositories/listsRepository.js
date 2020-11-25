@@ -2,7 +2,7 @@
 const mysql = require('mysql')
 const pool = require('../conf.js')
 const validator = require('../validator.js')
-const queries = require('../queries/listQueries.js')
+const queries = require('../queries/listsQueries')
 const table = 'lists'
 // MySql query
 
