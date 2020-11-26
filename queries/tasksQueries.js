@@ -94,6 +94,9 @@ const olio = {
         case '-edited':
           order = order + 'edited DESC'
           break
+        default:
+          console.log('Wrong value')
+          break
       }
     }
 
