@@ -11,22 +11,25 @@ router.use((req, res, next) => {
 
 // Get all
 router.get('/', async (req, res) => {
-  await connection.findAll(req.query)
-    .then(results => res.status(200).send(results))
+  await connection
+    .findAll(req.query)
+    .then((results) => res.status(200).send(results))
     .catch((err) => res.status(400).send(err))
 })
 
 // Get by ID
 router.get('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid)
-  await connection.findById(urlId, req.query)
+  await connection
+    .findById(urlId, req.query)
     .then((results) => res.status(200).send(results))
     .catch((err) => res.status(500).send(err))
 })
 
 // Post
 router.post('/', bodyParser.json(), async (req, res) => {
-  await connection.save(req.body)
+  await connection
+    .save(req.body)
     .then((results) => res.status(200).send(results))
     .catch((err) => res.status(400).send(err))
 })
@@ -35,7 +38,8 @@ router.post('/', bodyParser.json(), async (req, res) => {
 router.delete('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid, req.query)
 
-  await connection.deleteById(urlId)
+  await connection
+    .deleteById(urlId)
     .then((results) => res.status(200).send(results))
     .catch((err) => res.status(400).send(err))
 })

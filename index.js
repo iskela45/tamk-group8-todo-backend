@@ -1,9 +1,10 @@
 const express = require('express')
-const app = express()
 var cors = require('cors')
-app.use(cors())
 const api = require('./routes/api.js')
 
+const app = express()
+
+app.use(cors())
 app.use('/api', api)
 
 const port = process.env.PORT || 8080

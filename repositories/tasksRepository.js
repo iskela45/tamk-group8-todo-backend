@@ -1,5 +1,4 @@
 // gets login details from gitnored config.
-const mysql = require('mysql')
 const pool = require('../conf.js')
 const validator = require('../validator.js')
 const queries = require('../queries/tasksQueries.js')
@@ -7,7 +6,6 @@ const table = 'tasks'
 // MySql query
 
 const olio = {
-
   // Get all contents and print them.
   findAll: (reqQuery) => {
     async function asyncOp (resolve, reject) {
@@ -30,11 +28,11 @@ const olio = {
       }
       console.log(sql)
 
-      pool.query(sql, (err, locations) => {
+      pool.query(sql, (err, tasks) => {
         if (err) {
           reject(err)
         } else {
-          resolve(locations)
+          resolve(tasks)
         }
       })
     }

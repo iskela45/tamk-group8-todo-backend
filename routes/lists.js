@@ -13,7 +13,9 @@ router.use((req, res, next) => {
 router.get('/', async (req, res) => {
   await connection
     .findAll(req.query)
-    .then((results) => res.status(200).send(results))
+    .then((results) => {
+      res.status(200).send(results)
+    })
     .catch((err) => res.status(400).send(err))
 })
 

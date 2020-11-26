@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 const mysql = require('mysql')
 const olio = {
-  validateKeys(keys) {
+  validateKeys (keys) {
     const keyIsCorrect = (key) =>
       key === 'created' || key === 'search_name' || key === 'sort'
 
     return keys.every(keyIsCorrect)
   },
 
-  createWhereClause(keys, reqQuery) {
+  createWhereClause (keys, reqQuery) {
     let where = ' WHERE '
 
     for (let i = 0; i < keys.length; i++) {
@@ -33,7 +33,7 @@ const olio = {
     return where
   },
 
-  createOrderClause(reqQuery) {
+  createOrderClause (reqQuery) {
     let order = ' ORDER BY '
 
     console.log(reqQuery)
@@ -83,13 +83,13 @@ const olio = {
     return order
   },
 
-  createSqlQuery(where, order, table) {
+  createSqlQuery (where, order, table) {
     let sql =
       `SELECT * FROM ${table}` + mysql.escape(where) + mysql.escape(order)
     sql = sql.replace(/['"]+/g, '')
 
     return sql
-  },
+  }
 }
 
 module.exports = olio
