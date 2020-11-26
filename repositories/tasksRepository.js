@@ -21,7 +21,7 @@ const olio = {
         }
 
         const where = queries.createWhereClause(keys, reqQuery)
-        const order = queries.createOrderClause(keys)
+        const order = queries.createOrderClause(reqQuery)
         sql = queries.createSqlQuery(where, order, table)
       } else {
         sql = `SELECT * FROM ${table};`
