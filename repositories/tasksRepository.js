@@ -106,6 +106,36 @@ const olio = {
     }
 
     return new Promise(asyncOp)
+  },
+
+  update: (id, data) => {
+    async function asyncOp (resolve, reject) {
+      const idStat = await validator.idValidator(id)
+      console.log('in update')
+      console.log(data)
+      const key = Object.keys(data)[0]
+      console.log(key)
+      const value = data[key]
+      console.log(value)
+
+      let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)} WHERE id = ${pool.escape(id)}`
+
+      sql = sql.replace(/['"]+/g, '')
+
+      if (idStat.errors.length === 0) {
+        pool.query(sql, (err, response) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(response)
+          }
+        })
+      } else {
+        reject(idStat)
+      }
+    }
+
+    return new Promise(asyncOp)
   }
 }
 

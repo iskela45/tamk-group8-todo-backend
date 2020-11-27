@@ -1,5 +1,6 @@
 # Custom ignores
 config.js
+requests.http
 
 # Logs
 logs

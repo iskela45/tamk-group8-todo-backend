@@ -34,6 +34,16 @@ router.post('/', bodyParser.json(), async (req, res) => {
     .catch((err) => res.status(400).send(err))
 })
 
+// Put
+router.put('/:inputid', bodyParser.json(), async (req, res) => {
+  const urlId = Number(req.params.inputid, req.query)
+
+  await connection
+    .update(urlId, req.body)
+    .then((results) => res.status(200).send(results))
+    .catch((err) => res.status(400).send(err))
+})
+
 // Delete
 router.delete('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid, req.query)
