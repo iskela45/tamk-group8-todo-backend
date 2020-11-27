@@ -111,12 +111,8 @@ const olio = {
   update: (id, data) => {
     async function asyncOp (resolve, reject) {
       const idStat = await validator.idValidator(id)
-      console.log('in update')
-      console.log(data)
       const key = Object.keys(data)[0]
-      console.log(key)
       const value = data[key]
-      console.log(value)
 
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)} WHERE id = ${pool.escape(id)}`
 
