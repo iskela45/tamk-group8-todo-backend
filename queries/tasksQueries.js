@@ -41,71 +41,71 @@ const olio = {
   createOrderClause (reqQuery) {
     let order = ' ORDER BY '
 
-    console.log(reqQuery)
+    if ('sort' in reqQuery) {
+      const fsorts = reqQuery.sort.toString().split(' ').join('+')
+      const sorts = fsorts.split(',')
 
-    const fsorts = reqQuery.sort.toString().split(' ').join('+')
-    const sorts = fsorts.split(',')
+      for (const sort of sorts) {
+        if (order !== ' ORDER BY ') {
+          order = order + ','
+        }
 
-    for (const sort of sorts) {
-      if (order !== ' ORDER BY ') {
-        order = order + ','
+        switch (sort) {
+          // Is done
+          case '+is_done':
+            order = order + 'is_done ASC'
+            break
+          case '-is_done':
+            order = order + 'is_done DESC'
+            break
+          // List ID
+          case '+list_id':
+            order = order + 'list_id ASC'
+            break
+          case '-list_id':
+            order = order + 'list_id DESC'
+            break
+          // Priority
+          case '+priority':
+            order = order + 'priority ASC'
+            break
+          case '-priority':
+            order = order + 'priority DESC'
+            break
+          // Deadline
+          case '+deadline':
+            order = order + 'deadline ASC'
+            break
+          case '-deadline':
+            order = order + 'deadline DESC'
+            break
+          // Created
+          case '+created':
+            order = order + 'created ASC'
+            break
+          case '-created':
+            order = order + 'created DESC'
+            break
+          // Edited
+          case '+edited':
+            order = order + 'edited ASC'
+            break
+          case '-edited':
+            order = order + 'edited DESC'
+            break
+          default:
+            console.log('Wrong value')
+            break
+        }
       }
 
-      switch (sort) {
-        // Is done
-        case '+is_done':
-          order = order + 'is_done ASC'
-          break
-        case '-is_done':
-          order = order + 'is_done DESC'
-          break
-        // List ID
-        case '+list_id':
-          order = order + 'list_id ASC'
-          break
-        case '-list_id':
-          order = order + 'list_id DESC'
-          break
-        // Priority
-        case '+priority':
-          order = order + 'priority ASC'
-          break
-        case '-priority':
-          order = order + 'priority DESC'
-          break
-        // Deadline
-        case '+deadline':
-          order = order + 'deadline ASC'
-          break
-        case '-deadline':
-          order = order + 'deadline DESC'
-          break
-        // Created
-        case '+created':
-          order = order + 'created ASC'
-          break
-        case '-created':
-          order = order + 'created DESC'
-          break
-        // Edited
-        case '+edited':
-          order = order + 'edited ASC'
-          break
-        case '-edited':
-          order = order + 'edited DESC'
-          break
-        default:
-          console.log('Wrong value')
-          break
+      if (order.substring(order.length - 1, order.length) === ',') {
+        order = order.slice(0, -1)
       }
     }
 
     if (order === ' ORDER BY ') {
       order = ''
-    }
-
-    if (order.substring(order.length - 1, order.length) === ',') {
-      order = order.slice(0, -1)
     }
 
     return order
