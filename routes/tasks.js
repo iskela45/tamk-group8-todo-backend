@@ -11,47 +11,65 @@ router.use((req, res, next) => {
 
 // Get all
 router.get('/', async (req, res) => {
-  await connection
-    .findAll(req.query)
-    .then((results) => res.status(200).send(results))
-    .catch((err) => res.status(400).send(err))
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .findAll(req.query)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(400).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
 })
 
 // Get by ID
 router.get('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid)
-  await connection
-    .findById(urlId, req.query)
-    .then((results) => res.status(200).send(results))
-    .catch((err) => res.status(500).send(err))
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .findById(urlId, req.query)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(500).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
 })
 
 // Post
 router.post('/', bodyParser.json(), async (req, res) => {
-  await connection
-    .save(req.body)
-    .then((results) => res.status(200).send(results))
-    .catch((err) => res.status(400).send(err))
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .save(req.body)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(400).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
 })
 
 // Put
 router.put('/:inputid', bodyParser.json(), async (req, res) => {
   const urlId = Number(req.params.inputid, req.query)
-
-  await connection
-    .update(urlId, req.body)
-    .then((results) => res.status(200).send(results))
-    .catch((err) => res.status(400).send(err))
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .update(urlId, req.body)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(400).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
 })
 
 // Delete
 router.delete('/:inputid', async (req, res) => {
   const urlId = Number(req.params.inputid, req.query)
-
-  await connection
-    .deleteById(urlId)
-    .then((results) => res.status(200).send(results))
-    .catch((err) => res.status(400).send(err))
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .deleteById(urlId)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(400).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
 })
 
 module.exports = router
