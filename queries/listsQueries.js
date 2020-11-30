@@ -14,7 +14,7 @@ const olio = {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
-      if (key === 'sort') {
+      if (key === 'sort' || key === 'apikey') {
         continue
       }
 
@@ -26,7 +26,9 @@ const olio = {
       where += key + '=' + reqQuery[key] + ' AND '
     }
 
-    if (keys.length === 1 && keys.includes('sort')) {
+    if (((keys.length === 2 && keys.includes('sort')) &&
+        (keys.length === 2 && keys.includes('apikey'))) ||
+        (keys.length === 1 && keys.includes('apikey'))) {
       where = ''
     }
 
