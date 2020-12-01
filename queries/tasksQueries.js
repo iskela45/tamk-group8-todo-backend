@@ -38,6 +38,10 @@ const olio = {
       where = ''
     }
 
+    if (where.substring(where.length - 5, where.length) === ' AND ') {
+      where = where.slice(0, -5)
+    }
+
     return where
   },
 
