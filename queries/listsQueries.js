@@ -39,14 +39,14 @@ const olio = {
   },
 
   createOrderClause (reqQuery) {
-    let order = ' ORDER BY '
+    let order = 'ORDER BY '
 
     if ('sort' in reqQuery) {
       const fsorts = reqQuery.sort.toString().split(' ').join('+')
       const sorts = fsorts.split(',')
 
       for (const sort of sorts) {
-        if (order !== ' ORDER BY ') {
+        if (order !== 'ORDER BY ') {
           order = order + ','
         }
 
@@ -80,7 +80,7 @@ const olio = {
       }
     }
 
-    if (order === ' ORDER BY ') {
+    if (order === 'ORDER BY ') {
       order = ''
     }
 
