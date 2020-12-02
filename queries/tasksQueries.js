@@ -24,7 +24,6 @@ const olio = {
         continue
       }
 
-      // Replace let test in if conditions with reqQuery[key] after done debugging
       if (i === keys.length - 1) {
         if (reqQuery[key] === 'notNull') {
           where += key + ' IS NOT NULL'
@@ -43,8 +42,6 @@ const olio = {
       } else {
         where += key + '=' + reqQuery[key] + ' AND '
       }
-
-      where += key + '=' + reqQuery[key] + ' AND '
     }
 
     if (((keys.length === 2 && keys.includes('sort')) &&
