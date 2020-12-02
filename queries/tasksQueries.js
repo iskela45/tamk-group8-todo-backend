@@ -25,7 +25,7 @@ const olio = {
       }
 
       let test = reqQuery[key]
-      console.log(test + 'test')
+      console.log(test)
       console.log(typeof test)
       if (i === keys.length - 1) {
         console.log(reqQuery[key])
