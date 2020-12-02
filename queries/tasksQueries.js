@@ -24,11 +24,13 @@ const olio = {
         continue
       }
 
+      let test = reqQuery[key]
+      console.log(test + 'test')
       if (i === keys.length - 1) {
         console.log(reqQuery[key])
-        if (reqQuery[key] == 'notNull') {
+        if (test === 'notNull') {
           where += key + ' IS NOT NULL'
-        } else if (reqQuery[key] == 'null') {
+        } else if (test === 'null') {
           where += key + ' IS NULL'
         } else {
           where += key + '=' + reqQuery[key]
