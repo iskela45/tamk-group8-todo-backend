@@ -16,7 +16,7 @@ const olio = {
 
   createWhereClause (keys, reqQuery) {
     let where = ' WHERE '
-
+    console.log(reqQuery)
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
