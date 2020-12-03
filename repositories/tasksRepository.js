@@ -117,6 +117,7 @@ const olio = {
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
 
       sql = sql.replace(/['"]+/g, '')
+      console.log(sql)
 
       if (idStat.errors.length === 0) {
         pool.query(sql, (err, response) => {
