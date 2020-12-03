@@ -114,7 +114,7 @@ const olio = {
       const key = Object.keys(data)[0]
       const value = data[key]
 
-      let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)} WHERE id = ${pool.escape(id)}`
+      let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
 
       sql = sql.replace(/['"]+/g, '')
 
