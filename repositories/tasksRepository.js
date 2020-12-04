@@ -117,6 +117,7 @@ const olio = {
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
 
       sql = sql.replace(/['"]+/g, '')
+      console.log(sql)
 
       // The next five rows add single quotes around "value" variable because earlier the quotes need to be taken away
       const arr = sql.split(' ')
