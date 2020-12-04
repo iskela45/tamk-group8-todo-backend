@@ -1,5 +1,5 @@
 // gets login details from gitnored config.
-const pool = require('../conf.js')
+const pool = require('../config.js')
 const validator = require('../validator.js')
 const queries = require('../queries/tasksQueries.js')
 const table = 'tasks'
@@ -117,7 +117,6 @@ const olio = {
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
 
       sql = sql.replace(/['"]+/g, '')
-      console.log(sql)
 
       // The next five rows add single quotes around "value" variable because earlier the quotes need to be taken away
       const arr = sql.split(' ')
