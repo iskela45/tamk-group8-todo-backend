@@ -1,5 +1,5 @@
 // gets login details from gitnored config.
-const pool = require('../config.js')
+const pool = require('../conf.js')
 const validator = require('../validator.js')
 const queries = require('../queries/tasksQueries.js')
 const table = 'tasks'
