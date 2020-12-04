@@ -118,12 +118,14 @@ const olio = {
 
       sql = sql.replace(/['"]+/g, '')
 
-      // The next five rows add single quotes around "value" variable because earlier the quotes need to be taken away
-      const arr = sql.split(' ')
-      const i = arr.indexOf(value + ',')
-      const fValue = `'${value}',`
-      arr[i] = fValue
-      sql = arr.join(' ')
+      if (typeof value !== 'boolean') {
+        // The next five rows add single quotes around "value" variable because earlier the quotes need to be taken away
+        const arr = sql.split(' ')
+        const i = arr.indexOf(value + ',')
+        const fValue = `'${value}',`
+        arr[i] = fValue
+        sql = arr.join(' ')
+      }
 
       if (idStat.errors.length === 0) {
         pool.query(sql, (err, response) => {
