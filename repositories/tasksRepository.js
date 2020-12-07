@@ -122,7 +122,7 @@ const olio = {
       if (typeof value !== 'boolean') {
         // The next five rows add single quotes around "value" variable because earlier replace() deletes all the quotes away that is needed to do
         const arr = sql.split('')
-        const startIndex = 25
+        const startIndex = 16 + key.length + 3
         const fValue = `'${value}'`
         arr.splice(startIndex, len)
         arr.splice(startIndex, 0, ...fValue.split(''))
