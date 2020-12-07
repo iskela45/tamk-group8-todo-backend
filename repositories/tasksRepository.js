@@ -113,19 +113,23 @@ const olio = {
       const idStat = await validator.idValidator(id)
       const key = Object.keys(data)[0]
       const value = data[key]
+      const len = value.length
 
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
 
       sql = sql.replace(/['"]+/g, '')
 
       if (typeof value !== 'boolean') {
-        // The next five rows add single quotes around "value" variable because earlier the quotes need to be taken away
-        const arr = sql.split(' ')
-        const i = arr.indexOf(value + ',')
-        const fValue = `'${value}',`
-        arr[i] = fValue
-        sql = arr.join(' ')
+        // The next five rows add single quotes around "value" variable because earlier replace() deletes all the quotes away that is needed to do
+        const arr = sql.split('')
+        const startIndex = 25
+        const fValue = `'${value}'`
+        arr.splice(startIndex, len)
+        arr.splice(startIndex, 0, ...fValue.split(''))
+        sql = arr.join('')
       }
+
+      console.log(sql)
 
       if (idStat.errors.length === 0) {
         pool.query(sql, (err, response) => {
