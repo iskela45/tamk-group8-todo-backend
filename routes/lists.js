@@ -59,4 +59,17 @@ router.delete('/:inputid', async (req, res) => {
   }
 })
 
+// Put
+router.put('/:inputid', bodyParser.json(), async (req, res) => {
+  const urlId = Number(req.params.inputid, req.query)
+  if (req.query.apikey === process.env.apikey) {
+    await connection
+      .update(urlId, req.body)
+      .then((results) => res.status(200).send(results))
+      .catch((err) => res.status(400).send(err))
+  } else {
+    res.status(401).send('Apikey is missing or incorrect')
+  }
+})
+
 module.exports = router
