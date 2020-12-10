@@ -1,5 +1,4 @@
-// gets login details from gitnored config.
-const pool = require('../conf.js')
+const pool = require('../config.js')
 const validator = require('../validator.js')
 const queries = require('../queries/listsQueries.js')
 const table = 'lists'
@@ -106,7 +105,7 @@ const olio = {
     async function asyncOp (resolve, reject) {
       const idStat = await validator.idValidator(id)
       const key = Object.keys(data)[0]
-      const value = data[key]
+      const value = data[key].toString()
       const len = value.length
 
       let sql = `UPDATE ${table} SET ${pool.escape(key)} = ${pool.escape(value)}, edited = NOW() WHERE id = ${pool.escape(id)}`
