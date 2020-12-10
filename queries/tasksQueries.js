@@ -129,14 +129,6 @@ const olio = {
       }
     }
 
-    if ('limit' in reqQuery) {
-      order = order + `LIMIT ${reqQuery.limit} `
-    }
-
-    if ('offset' in reqQuery) {
-      order = order + `OFFSET ${reqQuery.offset}`
-    }
-
     if (order === ' ORDER BY ') {
       order = ''
     }
@@ -144,10 +136,25 @@ const olio = {
     return order
   },
 
-  createSqlQuery (where, order, table) {
+  createSqlQuery (where, order, pagination, table) {
     let sql =
-      `SELECT * FROM ${table}` + mysql.escape(where) + mysql.escape(order)
+      `SELECT * FROM ${table}` +
+                      mysql.escape(where) +
+                      mysql.escape(order) +
+                      mysql.escape(pagination)
     sql = sql.replace(/['"]+/g, '')
+
+    return sql
+  },
+
+  createPagination (reqQuery) {
+    let sql = ''
+    if ('limit' in reqQuery) {
+      sql = sql + ` LIMIT ${reqQuery.limit}`
+    }
+    if ('offset' in reqQuery) {
+      sql = sql + ` OFFSET ${reqQuery.offset}`
+    }
 
     return sql
   }
