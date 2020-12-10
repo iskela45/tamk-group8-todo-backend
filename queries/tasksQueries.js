@@ -9,7 +9,9 @@ const olio = {
       key === 'list_id' ||
       key === 'search_title' ||
       key === 'sort' ||
-      key === 'apikey'
+      key === 'apikey' ||
+      key === 'limit' ||
+      key === 'offset'
 
     return keys.every(keyIsCorrect)
   },
@@ -20,7 +22,7 @@ const olio = {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
-      if (key === 'sort' || key === 'apikey') {
+      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset') {
         continue
       }
 
@@ -52,6 +54,10 @@ const olio = {
 
     if (where.substring(where.length - 5, where.length) === ' AND ') {
       where = where.slice(0, -5)
+    }
+
+    if (where === ' WHERE ') {
+      where = ''
     }
 
     return where
@@ -121,6 +127,14 @@ const olio = {
       if (order.substring(order.length - 1, order.length) === ',') {
         order = order.slice(0, -1)
       }
+    }
+
+    if ('limit' in reqQuery) {
+      order = order + `LIMIT ${reqQuery.limit} `
+    }
+
+    if ('offset' in reqQuery) {
+      order = order + `OFFSET ${reqQuery.offset}`
     }
 
     if (order === ' ORDER BY ') {
