@@ -9,7 +9,9 @@ const olio = {
       key === 'list_id' ||
       key === 'search_title' ||
       key === 'sort' ||
-      key === 'apikey'
+      key === 'apikey' ||
+      key === 'limit' ||
+      key === 'offset'
 
     return keys.every(keyIsCorrect)
   },
@@ -20,7 +22,7 @@ const olio = {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
-      if (key === 'sort' || key === 'apikey') {
+      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset') {
         continue
       }
 
@@ -52,6 +54,10 @@ const olio = {
 
     if (where.substring(where.length - 5, where.length) === ' AND ') {
       where = where.slice(0, -5)
+    }
+
+    if (where === ' WHERE ') {
+      where = ''
     }
 
     return where
@@ -130,10 +136,25 @@ const olio = {
     return order
   },
 
-  createSqlQuery (where, order, table) {
+  createSqlQuery (where, order, pagination, table) {
     let sql =
-      `SELECT * FROM ${table}` + mysql.escape(where) + mysql.escape(order)
+      `SELECT * FROM ${table}` +
+                      mysql.escape(where) +
+                      mysql.escape(order) +
+                      mysql.escape(pagination)
     sql = sql.replace(/['"]+/g, '')
+
+    return sql
+  },
+
+  createPagination (reqQuery) {
+    let sql = ''
+    if ('limit' in reqQuery) {
+      sql = sql + ` LIMIT ${reqQuery.limit}`
+    }
+    if ('offset' in reqQuery) {
+      sql = sql + ` OFFSET ${reqQuery.offset}`
+    }
 
     return sql
   }
