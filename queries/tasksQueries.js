@@ -164,7 +164,7 @@ const olio = {
     let sql = ''
     if ('count' in reqQuery) {
       if (reqQuery.count) {
-        sql = 'COUNT(id)'
+        sql = 'COUNT(id) AS count'
       } else {
         sql = '*'
       }
