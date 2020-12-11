@@ -23,7 +23,8 @@ const olio = {
         const where = queries.createWhereClause(keys, reqQuery)
         const order = queries.createOrderClause(reqQuery)
         const pagination = queries.createPagination(reqQuery)
-        sql = queries.createSqlQuery(where, order, pagination, table)
+        const count = queries.createCount(reqQuery)
+        sql = queries.createSqlQuery(where, order, pagination, count, table)
       } else {
         sql = `SELECT * FROM ${table};`
       }

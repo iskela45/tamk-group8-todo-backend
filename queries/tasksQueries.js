@@ -11,7 +11,8 @@ const olio = {
       key === 'sort' ||
       key === 'apikey' ||
       key === 'limit' ||
-      key === 'offset'
+      key === 'offset' ||
+      key === 'count'
 
     return keys.every(keyIsCorrect)
   },
@@ -22,7 +23,7 @@ const olio = {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
-      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset') {
+      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset' || key === 'count') {
         continue
       }
 
@@ -136,9 +137,9 @@ const olio = {
     return order
   },
 
-  createSqlQuery (where, order, pagination, table) {
+  createSqlQuery (where, order, pagination, count, table) {
     let sql =
-      `SELECT * FROM ${table}` +
+      `SELECT ${count} FROM ${table}` +
                       mysql.escape(where) +
                       mysql.escape(order) +
                       mysql.escape(pagination)
@@ -154,6 +155,21 @@ const olio = {
     }
     if ('offset' in reqQuery) {
       sql = sql + ` OFFSET ${reqQuery.offset}`
+    }
+
+    return sql
+  },
+
+  createCount (reqQuery) {
+    let sql = ''
+    if ('count' in reqQuery) {
+      if (reqQuery.count === true) {
+        sql = 'COUNT(id)'
+      } else {
+        sql = '*'
+      }
+    } else {
+      sql = '*'
     }
 
     return sql
