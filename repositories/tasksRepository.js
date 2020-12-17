@@ -66,7 +66,7 @@ const olio = {
     return new Promise(asyncOp)
   },
 
-  // delete an entry by ID
+  // Delete an entry by ID
   deleteById: (id) => {
     async function asyncOp (resolve, reject) {
       const del = `DELETE FROM ${table} WHERE id = ${pool.escape(id)}`
@@ -89,7 +89,7 @@ const olio = {
     return new Promise(asyncOp)
   },
 
-  // delete an entry by ID
+  // Find an entry by ID
   findById: (id) => {
     async function asyncOp (resolve, reject) {
       const idStat = await validator.idValidator(id)
@@ -110,6 +110,7 @@ const olio = {
     return new Promise(asyncOp)
   },
 
+  // Update an entry
   update: (id, data) => {
     async function asyncOp (resolve, reject) {
       const idStat = await validator.idValidator(id)
