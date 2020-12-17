@@ -27,23 +27,25 @@ const olio = {
         continue
       }
 
-      if (i === keys.length - 1) {
-        if (reqQuery[key] === 'notNull') {
-          where += key + ' IS NOT NULL'
-        } else if (reqQuery[key] === 'null') {
-          where += key + ' IS NULL'
-        } else {
-          where += key + '=' + reqQuery[key]
+      if (key !== 'search_title') {
+        if (i === keys.length - 1) {
+          if (reqQuery[key] === 'notNull') {
+            where += key + ' IS NOT NULL'
+          } else if (reqQuery[key] === 'null') {
+            where += key + ' IS NULL'
+          } else {
+            where += key + '=' + reqQuery[key]
+          }
+          break
         }
-        break
-      }
 
-      if (reqQuery[key] === 'notNull') {
-        where += key + ' IS NOT NULL' + ' AND '
-      } else if (reqQuery[key] === 'null') {
-        where += key + ' IS NULL' + ' AND '
-      } else {
-        where += key + '=' + reqQuery[key] + ' AND '
+        if (reqQuery[key] === 'notNull') {
+          where += key + ' IS NOT NULL' + ' AND '
+        } else if (reqQuery[key] === 'null') {
+          where += key + ' IS NULL' + ' AND '
+        } else {
+          where += key + '=' + reqQuery[key] + ' AND '
+        }
       }
     }
 
