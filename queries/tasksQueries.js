@@ -19,11 +19,11 @@ const olio = {
 
   createWhereClause (keys, reqQuery) {
     let where = ' WHERE '
-    console.log(reqQuery)
+
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i]
 
-      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset' || key === 'count') {
+      if (key === 'sort' || key === 'apikey' || key === 'limit' || key === 'offset' || key === 'count' || key === 'search_title') {
         continue
       }
 
@@ -137,13 +137,26 @@ const olio = {
     return order
   },
 
-  createSqlQuery (where, order, pagination, count, table) {
+  createSqlQuery (where, like, order, pagination, count, table) {
     let sql =
       `SELECT ${count} FROM ${table}` +
                       mysql.escape(where) +
+                      this.createLikeQuery(like, where) +
                       mysql.escape(order) +
                       mysql.escape(pagination)
+
     sql = sql.replace(/['"]+/g, '')
+
+    // Add single quotes before and after LIKE pattern
+    if (like !== '') {
+      const sqlArr = sql.split('')
+      const start = sql.indexOf('%')
+      const end = sql.length + 1
+      sqlArr.splice(start, 0, "'")
+      sqlArr.splice(end, 0, "'")
+      sql = sqlArr.join('')
+      console.log(sql)
+    }
 
     return sql
   },
@@ -173,6 +186,30 @@ const olio = {
     }
 
     return sql
+  },
+
+  getSearchTitle (reqQuery) {
+    let like = ''
+
+    if ('search_title' in reqQuery) {
+      like = `${reqQuery.search_title}`
+    }
+
+    return like
+  },
+
+  createLikeQuery (title, where) {
+    let query = ''
+
+    if (title !== '') {
+      if (where === '') {
+        query = ' WHERE title LIKE %' + mysql.escape(title) + '%'
+      } else {
+        query = ' AND title LIKE %' + mysql.escape(title) + '%'
+      }
+    }
+
+    return query
   }
 }
 
