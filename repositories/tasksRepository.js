@@ -21,14 +21,14 @@ const olio = {
         }
 
         const where = queries.createWhereClause(keys, reqQuery)
+        const like = queries.getSearchTitle(reqQuery)
         const order = queries.createOrderClause(reqQuery)
         const pagination = queries.createPagination(reqQuery)
         const count = queries.createCount(reqQuery)
-        sql = queries.createSqlQuery(where, order, pagination, count, table)
+        sql = queries.createSqlQuery(where, like, order, pagination, count, table)
       } else {
         sql = `SELECT * FROM ${table};`
       }
-      console.log(sql)
 
       pool.query(sql, (err, tasks) => {
         if (err) {
