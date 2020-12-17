@@ -27,6 +27,8 @@ const olio = {
         continue
       }
 
+      // Replace notNull and null with 'IS NOT NULL' and 'IS NULL'
+      // excluding search_title.
       if (key !== 'search_title') {
         if (i === keys.length - 1) {
           if (reqQuery[key] === 'notNull') {
