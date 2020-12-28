@@ -4,7 +4,7 @@
 
 Backend for 4a00ez62-3001-group08  
 
-## Installation:  
+## Installation  
 
 
 ### Backend setup:  
